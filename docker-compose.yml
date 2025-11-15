@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  chromadb:
+    image: ghcr.io/chroma-core/chroma:latest
+    ports:
+      - "8000:8000"
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - CHROMA_SERVER_URL=http://chromadb:8000
+volumes:
+  chroma_data:
